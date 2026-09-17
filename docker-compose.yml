@@ -1,0 +1,17 @@
+services:
+  vpn-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      # Add any other keys you found in .env.example here, e.g.:
+      # - ADMIN_USERNAME=admin
+      # - ADMIN_PASSWORD=changeme
+    restart: unless-stopped
+    # NOTE: even locally with plain `docker compose up`, PPTP/L2TP/OpenVPN
+    # will not work without --cap-add=NET_ADMIN --device=/dev/net/tun,
+    # which Railway does not allow you to set. This compose file is only
+    # useful for testing that the panel itself builds and boots.
